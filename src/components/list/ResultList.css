@@ -1,0 +1,19 @@
+.list-container {
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  margin: 1rem;
+  background-color: lightblue;
+}
+
+.card-line {
+  display: flex;
+  margin: 1rem;
+}
+
+.line-description {
+  margin-right: 0.5rem;
+}
