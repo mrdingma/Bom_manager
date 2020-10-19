@@ -1,12 +1,40 @@
 import React, { useEffect, useState } from "react";
 import "./BomApp.css";
-import Data from "../../utility/data.helper";
 import ResultList from "../list/ResultList";
 import Modal from "../Modal/Modal";
+import axios from "axios";
+import Data from "../../utility/data.helper";
 
 const BomApp = (props) => {
   const [selectedItem, setSelectedItem] = useState(false);
   const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    const bom_id = 1001;
+    const url = `https://www.mobiusmaterials.com/api/v1/bom/${bom_id}/`;
+
+    let res = await axios({
+      url,
+      method: "get",
+    });
+
+    setData(res.data);
+  };
+
+  const putData = async (bom_id, pk, load) => {
+    const url = `https://www.mobiusmaterials.com/api/v1/bom/${bom_id}/bomitem/${pk}`;
+
+    debugger;
+    await axios({
+      url,
+      method: "put",
+      params: {
+        ...load,
+      },
+    });
+
+    fetchData();
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -16,10 +44,9 @@ const BomApp = (props) => {
     fetchData();
   }, []);
 
-  const postChanges = (bom_id, pk, load) => {
-    Data.postData(bom_id, pk, load);
-    setSelectedItem(false);
-  };
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="container">
@@ -34,7 +61,7 @@ const BomApp = (props) => {
           <Modal
             selectedItem={selectedItem}
             setSelectedItem={setSelectedItem}
-            postChanges={postChanges}
+            putData={putData}
           />
         </div>
       ) : null}

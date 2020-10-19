@@ -3,7 +3,7 @@ import "./Modal.css";
 
 const Modal = (props) => {
   const wrapperRef = useRef(null);
-  const { selectedItem, setSelectedItem, postChanges } = props;
+  const { selectedItem, setSelectedItem, putData } = props;
   const { model, pk, fields } = selectedItem;
 
   const handleClickOutside = (e) => {
@@ -37,7 +37,7 @@ const Modal = (props) => {
     }
 
     if (hasChangedFlag) {
-      postChanges(selectedItem.fields.bom, selectedItem.pk, load);
+      putData(selectedItem.fields.bom, selectedItem.pk, load);
     }
   };
 
